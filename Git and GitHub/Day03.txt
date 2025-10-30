@@ -1,0 +1,74 @@
+Git and GitHub
+~~~~~~~~~~~~~~~~~~
+learnwithkastro@gmail.com
+
+==> GIT STASH
+10.00 AM	-----> 10.30 AM -- TL -- Assigned a task -- Create a file, write python code and add it and commit it		-- partially completed
+			-----> 11.00 AM -- TL -- Top priority task -- Create a file, write some content and add it and commit it
+
+Note: We should never push the partially completed to the remote repo area. And, we shouldn't stage and commit it
+
+We need to store the partially completed work in temporary location which is available in git
+When we store the partially completed work in temporary location, git will not track the file(s)
+After storing the work in a temporary location, we can move to the top priority task and then finish it. 
+
+==> GITHUB
+GitHub is the place where we store the source code of the application - developers point of view
+GitHub is the place where we store the Jenkinsfile, Dockerfile, K8s YML Files, Ansible YML Files, Terraform Scripts - DevOps engineers point of view
+
+In GitHub, we have the concept of repositories.
+Repo is a place where the files are stored
+
+In GitHub we can create two types of repos based on visibility;
+	1. Public Repo	- any data that is stored here will be accessible for everyone on the internet
+	2. Private Repo	- any data that is stored here will be accessible for limited people based on the permissions given by the GitHub admin
+
+==> Pushing the code from local to remote remote repo
+
+==> GIT CLONE / Getting the complete code from Remote Repo to Local Repo
+To get the complete code from remote repo to local repo
+git clone <RepoURL>
+
+==> GIT PULL
+Git pull will only pull the changes available in the remote repo
+
+==> GIT PUSH
+To push the code from local to remote repo
+
+==> GIT FORK
+Forking a repo means, getting a copy of the code from one GitHub account to another GitHub account
+
+==> Downloading a repo
+
+==> Renaming a repo
+
+==> Deleting a repo
+
+==> Changing the visibility of repo
+
+==> GIT BRANCHES
+Branches are required to maintain separate code base for the different features available in an application
+By default when we initialize git, "master" branch will get created.
+In the latest versions of git, master branch is renamed as "main"
+
+Note: When we are switching, for the first time, from the existing branch to a newly created branch, whatever files that are available in the existing branch all those files will come into the newly created branch
+
+==> Changing the default branch
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

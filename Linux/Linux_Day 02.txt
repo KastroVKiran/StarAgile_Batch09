@@ -1,0 +1,205 @@
++++++++++++++++++++++++
+Linux Commands_Part 2
++++++++++++++++++++++++
+Users in Linux
+~~~~~~~~~~~~~~
+Two types of users (default)
+	1. ec2-user (Amazon Linux), ubuntu (Ubuntu AMI)	- have less permissions
+	2. root											- have all kinds of permissions
+
+# To know the current type of user
+whoami
+
+# To switch to root user
+sudo su
+
+# To switch back to the ec2-user
+exit (or) control + d
+
+Note:
+If you see $ at the end of a line, that means you are "ec2-user"
+If you see # at the end of a line, that means you are "root" user
+
+# Linux Directory Structure
+sudo -i
+cd
+You will be in / path ----> ls ----> You will see the default directory structure 
+
+# To see the manual (detailed info) about a command
+man		---> Manual
+man <CommandName>
+
+# To know the location of a command
+which <CommandName>
+
+# To check the OS
+cat /etc/os-release
+
+# HOSTNAME
+To know the hostname of the server
+hostname -i
+
+To set the hostname for a server
+sudo hostnamectl set-hostname <Name>
+sudo -i
+
+# To history of commands executed
+history
+
+# To rename a file
+mv
+
+# Working with COPY command
+cp
+To copy the content from one file to another file
+cp <file1name> <file2name>
+
+# To copy the content from multiple files to a single file
+cat kastro.txt kiran.txt > kk.txt
+
+---------------------------------------------------------------------------------------------
+Task: How to copy the content from one file to multiple files
+---------------------------------------------------------------------------------------------
+
+# To copy the content from one directory to another directory
+cp -r dir1/* dir2
+
+# HEAD and TAIL
+
+To see the first 10 lines in a file
+head <FileName>
+
+To see the last 10 lines in a file
+tail <FileName>
+
+head -n 5 kastro.txt (OR) head -5 kastro.txt
+tail -n 5 kastro.txt (OR) tail -5 kastro.txt
+
+To print the line numbers of a file
+:set number
+
+To go to the end of a line
+shift + a
+
+To go to the beginning of a line
+shift + i
+
+# File Permissions in Linux
+=> with characters
+-rw-r--r--. 1 root root 667 Oct  9 15:54 kastro.txt
+
+3 categories;
+	1. user (u)
+	2. group (g)
+	3. others (o)
+
+For each category we will have 3 types of permissions
+	1. read (r)
+	2. write (w)
+	3. execute (x)
+
+rw-r--r-- ===> kastro.txt
+User ---> read and write
+Group ---> read
+Others ---> read
+
+To add/remove the file permissions
+chmod
+
+User - execute
+chmod u+x 
+
+=> with numbers
+0 - no permissions
+1 - execute
+2 - write
+3 - 2+ 1 - write + execute
+4 - read
+5 - 4 + 1 - read + execute
+6 - 4 + 2 - read + write
+7 - 6 + 1 - read + write + execute
+
+ugo + x
+chmod 111
+
+u+r, g+rx, o+rw
+chmod 456
+
+u-rwx, g-rwx, o+rwx
+chmod 7
+
+chmod 007
+chmod 77
+chmod 077
+
+Note: When you give one or two number(s), the file permissions will be added from right to left
+
+# To delete everything available inside a file
+:%d
+
+# GREP
+Global Regular Expression Print
+GREP is used to search for a word
+grep 'hostname' kastro.txt
+grep -i 'hostname' kastro.txt
+grep -n 'hostname' kastro.txt
+grep -v 'hostname' kastro.txt
+
+# SED
+Stream Editor
+SED is used to process the data
+subsitute
+delete
+print
+insert
+--------------------------------------------------------------------------------------------------------------------------------
+Task: How to permanently substitute one word with another word using "sed" command
+--------------------------------------------------------------------------------------------------------------------------------
+SHELL SCRIPTING
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

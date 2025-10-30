@@ -1,0 +1,247 @@
+NODE Application
+==================================================================================================
+Lets see how to run a simple Node JS app using EC2 Instance
+We will also create a simple index.html page in this demo
+
+Launch VM - Amazon Linux 2 AMI, t2.micro
+Connect to the VM
+sudo su
+You are in /home/ec2-user path
+
+curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
+
+Run the following command to install nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+
+After installation, load nvm into your shell session:
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+nvm --version
+
+Install Node.js using nvm:
+nvm install --lts
+
+To see the list of nvm:
+nvm ls-remote
+
+nvm install 16
+
+nvm use 16
+
+node -v
+npm -v
+
+STEP 1: ADD REQUIRED REPO FROM OFFICIAL NODEJS WEBSITE.
+curl -sL https://rpm.nodesource.com/setup_14.x | sudo bash -
+
+STEP 2: INSTALL NODEJS.
+sudo yum install -y nodejs
+
+STEP 3: VERIFY INSTALLED VERSION.
+node -v
+npm -v
+
+STEP 4: CREATE A server.js FILE AND RUN IT.
+Create a file named server.js with the provided the below content.
+Whenever we run this server.js file, it is going pick the content from index.html file and in this .js file we will also tell which protocol and port number has to be used.
+The below script creates a http server which listens on Port 80 and it will read the content from index.html file and it will also send a response when someone access the server.
+You can also change the port number, if required in the below content
+
+vi server.js ----> Paste the below content ---->
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+
+const server = http.createServer((req, res) => {
+  const filePath = path.join(__dirname, 'index.html');
+  const stat = fs.statSync(filePath);
+
+  res.writeHead(200, {
+    'Content-Type': 'text/html',
+    'Content-Length': stat.size,
+  });
+
+  const readStream = fs.createReadStream(filePath);
+  readStream.pipe(res);
+});
+
+const PORT = 80;
+server.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+----> esc ---> :wq
+this script creates a basic web server that listens on port 80, reads the content of an index.html file, and sends it as the response when a request is made to the server. The server logs a message indicating that it is running on http://localhost:80.
+
+Lets create the index.html file
+vi index.html ---> Paste the below content ---> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Kastro-App-1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    .banner {
+      background-image: url('https://media.licdn.com/dms/image/v2/D5616AQEmUtBVk0Lw0Q/profile-displaybackgroundimage-shrink_350_1400/profile-displaybackgroundimage-shrink_350_1400/0/1716294939546?e=1745452800&v=beta&t=plGcHN9hOuLxuREa8Chsw4y2_muQ6vVCtaF01qGNwbE');
+      background-size: cover;
+      background-position: center;
+      height: 200px; /* Reduced banner height */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .header {
+      font-size: 2.5rem;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .profile-image {
+      display: block;
+      margin: 0 auto;
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      border: 5px solid #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .about-me {
+      text-align: center;
+      margin: 20px auto;
+      max-width: 600px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-me h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .about-me p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .youtube-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      color: #fff;
+      background-color: #ff0000;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      width: fit-content;
+    }
+
+    .youtube-button:hover {
+      background-color: #cc0000;
+    }
+
+    .youtube-button img {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #333;
+      color: #fff;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">Welcome to Kastro-App-1</div>
+
+  <div class="banner"></div>
+
+  <div class="content">
+    <img src="https://media.licdn.com/dms/image/v2/D5603AQHJB_lF1d9OSw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1718971147172?e=1745452800&v=beta&t=TAEVuu-ImVTAJTvtMvtV4tzJV9aZM3iS4Ts1XrXAEsk" alt="Profile Image" class="profile-image">
+
+    <div class="about-me">
+      <h2>About Me</h2>
+      <p><strong>Name:</strong> Kastro Kiran V</p>
+      <p><strong>Role:</strong> AWS & DevOps Corporate Trainer</p>
+      <p><strong>Education:</strong> PhD</p>
+    </div>
+
+    <a href="https://www.youtube.com/playlist?list=PLs-PsDpuAuTfG3gFR5DnVD58kT7JBO97x" class="youtube-button">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/1024px-YouTube_full-color_icon_%282017%29.svg.png" alt="YouTube Icon">
+      DevOps Projects
+    </a>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Kastro-App-1. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+
+----> esc ---> :wq
+
+STEP 5: INSTALL REQUIRED PACKAGES / INSTALL DEPENDENCIES.
+npm install
+
+STEP 6: NODE.JS WILL INTERPRET AND EXECUTE THE CODE IN THE server.js FILE. THIS IS A COMMON PATTERN FOR RUNNING SERVER-SIDE JAVASCRIPT APPLICATIONS.
+node server.js
+
+Goto the browser and access the Public IP ---> You will see app
+Make sure to open port 80 for VM
+
+Goto Moba and press Control + c. The website gets interrupted. 
+Go to the browser and refresh. You will see "This site cant be reached". This is because the app is running in interactive mode.
+
+So we need to run this in detached mode. For this we need to work with pm2
+
+Command to install pm2
+npm install -g pm2
+
+list all running processes/apps.
+pm2 list   (or) pm ls
+You will see the status as offline. This means our Node JS App is not running
+
+Start app/services with name
+pm2 start server.js --name "kastro-app1"
+You will see the status as online and id as 0 and other details
+Goto the browser and access the Public IP ---> You will see app
+
+Goto Moba ---> To see the info related to the app currently running ---> pm2 show 0 (OR) pm2 show kastro-app1
+
+Lets say you have made some code changes, to deploy the latest code changes, we will use ---> pm2 reload 0 (OR) pm2 show kastro-app1
+
+To stop ---> pm2 stop 0 (OR) pm2 show kastro-app1
+To restart ---> pm2 restart 0 (OR) pm2 show kastro-app1
+To start ---> pm2 startup
+
+Lets create one more app in the same server;
+create a directory ---> mkdir myapp2 ----> cd myapp2 ----> Create server.js file. Change the port number in this file to 9090. 
+Also create index.html file with some different content ----> Lets start ----> pm2 start server.js --name "kastro-app2" ---> pm2 ls ---> You will see both apps status as "online" ---> To monitor the resources ---> pm2 monit ---> select any app to see the info of that app  ---> press 'esc' to come out of the window ---> To see the logs ---> pm2 logs kastro-app1 ---> You will see the logs
+
+Access the 2nd app in browser. Make sure to open 9090 port number
+

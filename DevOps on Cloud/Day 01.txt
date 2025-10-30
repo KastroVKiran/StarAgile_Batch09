@@ -1,0 +1,180 @@
+DevOps on Cloud (AWS) - 2 days
+-------------------------------------------------------
+DevOps Tools;
+	Git and GitHub										- Repository Tools
+	Maven												- Build Tools
+	Nexus/JFrog											- Artifact Repository Tools
+	SonarQube											- Code Quality Analysis Tools
+	Web servers/App servers (Tomcat, Nginx)				- Web servers/App servers
+	Jenkins												- CI & CD Tools
+	Docker												- Containerization Tools
+	Kubernetes - Monitoring (Prometheus and Grafana)		- Orchestration Tools & Monitoring Tools
+	Ansible												- Configuration Management Tools
+	Terraform											- Infrastructure Automation Tools
+
+All the above tools are open-source
+All the tools mentioned above, except GitHub, requires Virtual Machines
+Launch VM	-----> Install specific tool		-----> Configuration		-----> Start working with the tool
+
+Whatever works that will be done by the above DevOps tools, for each and every tool there is an alternative service in Cloud (AWS)
+
+AWS Code Suite Services;
+AWS Code Suite is a group of fully managed CI&CD services offered by AWS Cloud
+These services helps to automate your entire software delivery process - from writing the code to testing, building, deploying and monitoring
+
+The suite consists of;
+	1. AWS Code Commit		- GitHub	
+	2. AWS Code Build			- Maven
+	3. AWS Code Deploy			- Deployment automation
+	4. AWS Code Pipeline			- Jenkins
+	5. AWS Code Star			- Unified project management interface 
+	6. AWS Code Guru			- SonarQube - Code review and performance analysis (AI-based)
+	7. AWS Code Artifact			- Nexus/JFrog
+
+AWS Code Commit has been deprecated by AWS Cloud
+
+AWS Code Suite Services are Serverless Services
+
+AWS Code Commit  	- It is a fully managed git-based repository service hosted on AWS Cloud
+					- It is used to store the source code of the application
+
+AWS Code Build		- It is a fully managed build service that compiles the source code and runs the unit tests and produces artifacts (.jar, .war files)
+					- buildspec.yml
+					- YAML - Yet Another Markup Language
+
+AWS Code Deploy	- A deployment automation service that updates the application hosted on EC2, S3, Lambda, ECS or on-premise servers
+					- appspec.yml
+
+AWS Code Pipeline	- It is a CI and CD pipeline that automates your software release workflow
+					- from commit ---> Build ----> Test ---> Deploy
+
+Code Commit (GitHub)	----> Code Build	----> Code Deploy	----> Code Pipeline	----> Access the application 
+====================================================================================
+Overview on Azure DevOps
+======================
+Azure Cloud + DevOps
+Azure DevOps
+Azure DevOps is a collection of services for planning, building, testing, deploying and managing software projects
+We can use Azure DevOps to manage the entire DevOps Lifecycle
+
+Five Code Azure DevOps Tools;
+	1. Azure Repos			- GitHub and Code Commit
+	2. Azure Pipelines			- AWS Code Build + AWS Code Pipeline / Jenkins
+	3. Azure Boards			- Like Jira/Trello
+	4. Azure Artifacts			- To store the artifacts
+	5. Azure Test Pipelines	- Testing and QA
+
+===================================================================================================
+Developers (Push the code)		----> GitHub ----> Build the Code	----> Test	----> Store the Artifacts	----> Deploy
+
+Project 1;											zip							Extracted
+Developer	----> GitHub 		---> AWS Code Build		--------> AWS Code Deploy	------------->	S3 Bucket	----> Static Website Hosting
+----> ACM	----> Cloud Front	---> WAF ----> AWS Code Pipeline
+
+StarAgile_Project 1
+
+Repo URL: https://github.com/KastroVKiran/ECR-ECS-Project.git
+
+While doing this project, replace the content in buildspec.yml file with the below content;
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo "No installation needed for static HTML"
+
+  pre_build:
+    commands:
+      - echo "Preparing build..."
+
+  build:
+    commands:
+      - echo "Building static HTML site"
+      - mkdir -p output
+      # Copy all files to output directory
+      - cp -r * output/ || true
+      # Remove buildspec from artifacts
+      - rm -f output/buildspec.yml
+
+  post_build:
+    commands:
+      - echo "Build complete - $(ls -la output/)" 
+      
+artifacts:
+  files:
+    - '**/*'
+  base-directory: output
+  discard-paths: no
+
+1. Create a S3 bucket 
+
+Enable to ACLs, Uncheck Block all public access
+
+Enable Static Website Hosting for the bucket
+
+Add below policy ----> 
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "<BucketARN>/*"
+    }
+  ]
+}
+
+Change the ARN in above Policy
+
+2. Establish the connection b/w GitHub account and AWS Account
+
+3. Create a project ---- Code Build
+
+Role Name: codebuild-kastro-project-service-role
+
+4. Code Pipeline
+
+Role Name: AWSCodePipelineServiceRole-us-east-1-kastro-pipeline-project
+
+
+
+
+ → Goto buildspec.yml file, add the below lines under the "Post build" command block as shown below
+post_build:
+  commands:
+    - echo "Build complete - $(ls -la output/)"
+    - echo "Invalidating Cloudfront cache..."
+    - aws cloudfront create-invalidation --distribution-id <DistributionIDfromCloudFront> --paths "/*"  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

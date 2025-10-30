@@ -1,0 +1,219 @@
+Modules;
+1. Linux & Shell Scripting
+2. DevOps Overview
+3. DevOps on Cloud (AWS)
+4. Git and GitHub
+5. Maven
+6. Jenkins
+
+Add-ons;
+Webserver - Tomcat
+Nexus
+SonarQube
+
+Projects;
+1. Manual Deployment of Java App - Tomcat
+2. Jenkins Project 1 - Freestyle Project (Java App)
+3. Jenkins Project 2 - Pipeline (Java App)
+4. Jenkins Project 3 - Pipeline (Java App)
+5. Jenkins Project 4 - Pipeline (Java App)
+6. Nexus Project
+7. SonarQube Project
+================================================================================================
+Dr. Kastro Kiran V
+================================================================================================
+
+Linux Fundamentals - 3 days
+~~~~~~~~~~~~~~~~~~~~
+Why to learn Linux?
+	
+
+What is Linux?
+ Linux is an OS
+
+What is an OS?
+ OS is something which helps to communicate with the machine
+ OS acts as a mediator between the User and the Machine
+
+Types of OS?
+ Windows, macOS, Linux
+
+Windows Vs Linux
+Windows OS is not FREE
+Linux OS is totally FREE
+
+Windows OS has less security
+Linux OS comes with better security features
+
+Windows OS is for personal use
+Linux OS is for professional use
+
+Only one person can work at a time with Windows OS
+Linux OS can be used by multiple people at the same time
+
+Windows OS was developed by Microsoft Organization
+Linux OS was developed by Linux Torvalds
+
+Windows is GUI based
+Linux is CLI based
+
+Working with Linux OS;
+EC2		----> Launch VM		----> MobaXTerm (.pem)
+
++++++++++++++++++++++++
+Linux Commands_Part 1
++++++++++++++++++++++++
+# To clear the screen
+clear (or) control + l
+
+# To see the current working location
+pwd
+
+# To see the current month 
+cal (or) cal -1
+
+# To see the current month, past month and upcoming month
+cal -3
+
+# To see the calendar of a complete year
+cal <Year>
+
+# To see the date
+date
+
+# To see from how long my server is up and running
+uptime
+
+# In Linux everything is represented as a File or a Directory
+
+In Linux Directories are nothing but folders
+
+# To see the files and directories available in the current location
+ls			----> to see the list of files/directories
+ls -l (or) ll	----> to see the detailed information (metadata) of the files and directories available
+
+# To create a directory
+mkdir <Dir.Name>
+
+# How to identify a file or a directory
+If you see "d" in the beginning of a line, when ll or ls -l is executed, that is a directory
+If you see "-" in the beginning of a line, when ll or ls -l is executed, that is a file
+
+# To go inside a specific directory
+cd <Dir.Name> 
+
+# To come out of a directory
+cd ..
+cd ../../..
+
+# To delete an empty directory
+rmdir <Dir.Name>
+
+# To delete everything that is available inside a directory
+rm -rf <Dir.Name>
+
+# Creation of files in Linux
+3 ways of creating files in Linux OS;
+	1. touch
+	2. cat
+	3. vi (or) nano
+
+# Creating an empty file
+touch <FileName>.<Extension>
+
+Note: If file extension is not given, Linux will consider such file as a normal file
+
+kiran1.txt
+kiran2.txt
+kiran3.txt
+.
+.
+.
+kiran10.txt
+
+touch kiran{1..10}.txt
+
+# To remove a file
+rm <FileName>
+
+# To delete a specific type of files (eg; python files)
+rm *.py
+
+# To see the hidden files
+ls -la
+
+# To delete all the files available in the current location
+rm -rf *
+
+Note: We cannot delete the hidden files or directories
+
+# Working with "cat" command
+cat > <FileName>
+
+The above command will create the file (if not available) and then it will allow us to write the content inside it
+
+Note: If there is any data available, that data will be overwritten with the new data, if you give one > symbol
+
+# To see the data available inside a file
+cat <FileName>
+
+# To append the data
+cat >> <FileName>
+
+# To see the data in reverse order
+tac <FileName>
+
+# Working with "vi" command
+vi is an editor in Linux
+vi can create a file as well
+using vi we can write the data in a file
+
+vi <FileName>
+To write the data, press "i" 
+To come out of the insert mode, press "esc"
+To save and quit from the file, press :wq
+
+Note: To come out of a file without saving the data;
+		:q!
+
+# To print the number of lines available in a file
+cat -n <FileName>
+
+# To see the number of lines, number of words, number of characters in a file
+wc <FileName> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Note: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

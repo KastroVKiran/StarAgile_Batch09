@@ -1,0 +1,103 @@
+Git and GitHub
+~~~~~~~~~~~~~~~~~~
+==> TO SEE THE COMMIT HISTORY
+
+To see the commit history;
+git log
+git log --oneline (or) git log --oneline --decorate
+git log --oneline -2 (To see the latest 2 commits)
+
+git show ---- show changes made in the latest commit
+git show <CommitID> --- show the changes made in the specific commit
+
+git log -p -2 --- show the latest 2 commits with difference
+git log --stat --- to see the summary of the changes made in all the commits
+git shortlog --- to see the number of commits, along with commit messages, made by a specific author/user
+
+git log --pretty=oneline --- to see the full commit id along with commit message
+git log --oneline --- to see the shorter commit id along with commit message
+
+git log --pretty=format:"%h-%an,%ar:%s" --- to see the details of commit (hash number, authorname, time, commit message)
+git log --oneline --author=<"AuthorName"> --- to see the commits made by a specific author
+
+git blame <FileName> --- to see who made the changes to a specific file
+
+==> GIT CHECKOUT
+
+Scenario 1
+To switch to the oldest version of the same file from the latest version and vice-versa
+git checkout <CommitID> -- <FileName>
+
+Scenario 2
+Recovering a deleted file
+git checkout HEAD -- <FileName>
+
+==> CHANGING THE COMMIT MESSAGE
+Scenario 1 - To change the latest commit message
+git commit --amend -m "<NewCommitMessage>" --- to change the latest commit message
+
+Scenario 2 - To undo the latest commit message
+git reflog --- git reset --hard HEAD@{1} --- To undo the commit message
+
+Scenario 3 - To change the last (oldest) commit message
+git rebase -i --root
+
+Scenario 4: To change a particular commit message
+
+==> GIT DIFF
+git diff is a command which is used to show changes between different states of your repo.
+
+Scenario 1 - before staging the changes
+to see what changes exist in working directory compared to staging area
+git diff
+
+Scenario 2 - after staging changes
+to see what is staged but not committed 
+git diff --staged (OR) git diff --cached
+
+Scenario 3 - between any two commits
+git diff <Commit1> <Commit2>
+
+Scenario 4 - between any two branches
+git diff <Branch1> <Branch2>
+
+Scenario 5- for a specific file
+git diff <FileName>
+
+Demo 1 - Working Area vs Staging Area
+
+Demo 2 - Staging Area Vs Local Repo Area
+
+Demo 3 - To see the changes b/w working area and local repo area
+
+
+==> GIT RESTORE
+
+Scenario 1 - How to restore a staged file (but not committed) - to unstage a staged file without deleting the data
+git reset <FileName>
+
+Scenario 2 - When we dont have any commits - to unstage a staged file
+git reset <FileName>
+
+Scenario 3 - Lets say if you have atleast one old commit, then follow the below process - to unstage a staged file
+
+Scenario 4 - How to uncommit a committed file - PENDING- Will be discussed during Tuesday session
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

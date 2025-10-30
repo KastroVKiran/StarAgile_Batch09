@@ -1,0 +1,74 @@
+Sample for understanding fork concept
++++++++++++++++++++++++
+Linux Commands_Part 3
++++++++++++++++++++++++
+Users in Linux
+~~~~~~~~~~~~~~
+Two types of users (default)
+	1. ec2-user (Amazon Linux), ubuntu (Ubuntu AMI)	- have less permissions
+	2. root											- have all kinds of permissions
+
+Creating and working with users;
+sudo useradd <UserName>
+
+CHOWN
+
+SUDOERS
+
+FIND and LOCATE
+
+=> Package Managers in Linux
+Package means a software
+Package managers are used to manage software packages in Linux machines
+Package managers are specific to Linux distributions;
+	Amazon Linux	----> yum (Yellowdog Updates, Modifier)
+	Ubuntu			----> apt (Advanced Packaging Tool)
+
+rpm (RedHat Package Manager)
+dnf (Dandified Yum)
+dpkg (Debian Package Management System)
+
+=> SYSTEMCTL
+systemctl is used to manage services in Linux machines
+using systemctl, we can perform below operations;
+	start a service
+	enable a service
+	status of a service
+	restart a service
+	stop a service
+
+=> Networking Commands
+ping - to check the connectivity
+wget - it is used to download files from internet
+ifconfig - to get the ip address of server
+curl - is used to send httpd request to the url
+
+=> Transferring files from Windows machine to Linux machine
+1. Launch VM with .ppk file
+2. WinSCP - install
+
+=> Transferring files from Linux machine to Linux machine
+
+
+ps aux
+
+ps aux | grep ec2-user
+ps aux | grep sshd
+ps aux --sort=-%cpu | head
+ps aux --sort=-%mem | head
+
+
+sudo ss -tuln
+
+
+
+
+
+
+
+
+
+
+
+
+

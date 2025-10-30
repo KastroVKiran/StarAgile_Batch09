@@ -1,0 +1,63 @@
+Git and GitHub
+~~~~~~~~~~~~~~~~~~
+Installation of git on local;
+https://git-scm.com/install/windows
+
+Installation of Git on EC2 Instance
+Linux	----> sudo yum install git -y
+			git --version
+Ubuntu	----> sudo apt install git -y
+			git --version
+
+Installation of VS Code Editor;
+https://code.visualstudio.com/download
+
+Install "git" plugin
+
+Configuration of git;
+How to configure credentials in Local GIT and in EC2 VM?
+Username: git config --global user.name “<UserName>”
+Email: git config --global user.email “<UserEMail>”
+How to verify the configuration? 
+git config user.name
+git config user.email
+The above is a one time activity
+To see the configurations done on git;
+git config --list
+How to remove git credentials?
+In PC  Credentials Manager  Windows Credentials  Select the git related creds  remove
+
+Important points to be notes;
+All git commands starts with “git”
+Configure user credentials
+Git works with repositories
+All (most) of the git commands should run inside a git repository 
+
+Working with git
+Create a folder in local
+initialize git					--- git init
+create a file					--- touch/vi/vim/nano/echo...
+add to the staging area			--- git add <FileName>
+commit to the local repo area	--- git commit -m "<Commit Message>
+check the status				--- git status
+
+To see the commit history;
+git log
+git log --oneline
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

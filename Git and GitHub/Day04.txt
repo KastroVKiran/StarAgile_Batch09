@@ -1,0 +1,88 @@
+Git and GitHub
+~~~~~~~~~~~~~~~~~~
+==> .gitignore
+
+==> Renaming a branch
+git branch -m recharge payment
+
+Note: If you change the branch name in local, that change is available only for local. It cannot be changed in remote repo
+
+==> PULL REQUEST
+
+==> BRANCH MERGING
+
+==> git merge Vs git rebase
+Merge will show files, rebase wont show
+
+git merge
+git log --oneline
+a8cba63 (HEAD -> dth, origin/dth) Merge branch 'payment' into dth
+aba1401 (origin/recharge, origin/payment, payment) recharges files added
+d363830 added dth files
+9770e37 created master text file
+
+git rebase
+
+git merge payment
+Merge made by the 'ort' strategy.
+ recharge1.txt | 0
+ recharge2.txt | 0
+ recharge3.txt | 0
+ recharge4.txt | 0
+ recharge5.txt | 0
+ 5 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 recharge1.txt
+ create mode 100644 recharge2.txt
+ create mode 100644 recharge3.txt
+ create mode 100644 recharge4.txt
+ create mode 100644 recharge5.txt
+
+git rebase dth
+Successfully rebased and updated refs/heads/payment.
+
+==> MERGE CONFLICT
+one file, two branches, two developers
+
+Dev1	- Branch1	- code.txt		- Java Code
+Dev2	- Branch2	- code.txt		- Python Code
+When we merge conflict occurs because both developers changed the same file
+
+Note: All the conflicts have to be resolved MANUALLY
+
+First merge 
+	Branch1 ----> Master
+	NO CONFLICTS
+	The existing data which was there in master branch file has been overwritten
+
+Second merge
+	Branch2 ----> Master
+	CONFLICTS WILL COME
+
+==> CHERRY PICK
+
+==> COLLABORATORS
+
+
+==============
+Pending Topics
+
+creating a GitHub profile
+git squash
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

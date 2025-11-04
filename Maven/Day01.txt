@@ -1,0 +1,136 @@
+Maven
+~~~~~~~~~~~~~~~
+Netflix	-----> Java (netflix.java)		----> It contains source code of the application
+
+Based on the programming language, we have different build tools
+	Java		----> Maven
+	Python	----> PyBuilder
+	Ruby	----> Rakes
+	.net		----> MS Builder
+
+Ant, Gradle...
+
+Developers will write the source code of the application
+As a DevOps Engineer, we shall have to deploy the code into the servers
+Before deploying the code into the servers, we (DevOps Engineers) need to BUILD the code
+To build the code we will use Build tools
+For java based projects, we will use Maven as a build tool
+Maven is developed by using Java Programming Language
+Maven is also known as Java Build Tool
+To work with Maven, we need to install Java
+Maven is owned by Apache organization
+
+Advantages of using Maven;
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=> Using Maven developers can create the project folder structure
+
+=> Using Maven we can download the "dependencies" which are required to develop the project
+
+What is meant by Dependency?
+	Chicken Biryani	-----> Chicken (main ingredient)	-----> rice, masala items,.... (dependencies)
+	Netflix			-----> Java	-----> spring boot, spring context (dependencies)
+
+How maven downloads these dependencies?
+pom.xml file ---- we will configure the dependencies required for the project
+pom.xml file is like an assistant / PA to Maven
+pom.xml ----> Project Object Model , Extension Markup Language
+
+java - pom.xml
+python - requirements.txt
+nodejs - package.json
+
+From where we will get the dependencies?
+https://mvnrepository.com/
+
+=> Using maven we can compile the source code of the application
+Netflix.java	-----> the .java files cannot executed in the ec2 instance where Java is available
+.java files consists of human readable language -----> .java files should converted into machine understandable language (binary - 0s 1s)
+To convert human readable language into machine understandable language, we will use MAVEN
+
+								COMPILATION
+.java files	 (human readable language)	-------------------------> .class files (machine understandable language)
+
+=> Using Maven we can package multiple .class files
+Netflix ----> 100 .java files ----> 100 .class files
+When we have multiple .class files, we need to package (bundle) them as a single file - packaging
+Using Maven we can package the .class files
+These packages are also known as "ARTIFACTS"
+
+Based on the type of application, we will have different packages;
+	1. Standalone Applications	-----> .jar (Java Archive)
+	2. Web Applications		-----> .war (Web Archive)
+	3. Enterprise Applications	-----> .ear (Enterprise Archive)
+
+To execute any java file, we need a machine which is pre-installed with JAVA
+
+What is Build Process?
+~~~~~~~~~~~~~~~~~~~~~~
+The process of compilation and packaging is known as build process
+
+Install and Setup of Java & Maven
+~~~~~~~~~~~~~~~~~~~~~~
+https://www.oracle.com/in/java/technologies/downloads/
+
+https://maven.apache.org/download.cgi
+
+JAVA_HOME configuration ----> C:\Program Files\Java\jdk-21
+JAVA PATH configuration ----> C:\Program Files\Java\jdk-21\bin
+To verify the configuration ----> java --version
+
+MAVEN_HOME configuration ----> C:\apache-maven-3.9.9
+MAVEN PATH configuration ----> C:\apache-maven-3.9.9\bin
+To verify the configuration ----> mvn --version
+
+
+Creation of Standalone Application
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+mvn archetype:generate -DgroupId=com.example.app -DartifactId=standalone-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+mvn archetype:generate → creates a new Maven project from a template (archetype).
+-DgroupId=com.example.app → defines your package name (you can change it).
+-DartifactId=standalone-app → project folder name.
+-DarchetypeArtifactId=maven-archetype-quickstart → uses the standard Java template (for console/standalone apps).
+-DinteractiveMode=false → skips the prompts and directly generates the project.
+
+Creation of Web Application
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+mvn archetype:generate -DgroupId=com.example.webapp -DartifactId=my-webapp -DarchetypeArtifactId=maven-archetype-webapp -DinteractiveMode=false
+
+Understanding the folder structure;
+Whenever we create initial project folder structure, two things will be available;
+	1. src folder		- contains source code of the application
+	2. pom.xml file	- it is used to configure the dependencies required for the project
+
+Maven Repositories
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+We have 3 types of maven repos;
+	1. Local Repo		- .m2 folder ----> C drive (Find out where)
+	2. Central Repo	- mvnrepository.com
+	3. Remote Repo	- every organization will maintain their own remote repos to store the artifacts (.jar / .war /.ear file)
+
+Artifact Repo Tools - to store the artifacts in a secure location, we will use Artifact repo tools
+Nexus, JFrog, AWS - S3 Buckets
+
+Maven Goals
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+Any maven goal will start with "mvn"
+We use goals to compile and package the code
+We also use goals to delete the old version .class files and old version artifacts
+
+mvn clean*		- it will delete the existing "target" folder
+
+mvn compile*		- to compile the source code 	- "target" folder gets created	- it contains .class files
+
+mvn test			- to perform the unit test on code
+
+mvn package*		- to package multiple .class files into a single package (artifact)	- inside "target" folder artifacts will be available
+
+mvn install		- to install the entire package as a software
+
+Note: All maven goals should be executed in the path where pom.xml file is available
+
+Understanding the key elements of pom.xml file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+SNAPSHOT ----> developers are still developing the code
+RELEASE	----> developers has developed the code
+

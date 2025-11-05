@@ -1,0 +1,224 @@
+Jenkins - 5 days
+-----------------------------------------
+Tomcat
+
+Types of Deployments;
+	1. Manual Deployment
+	2. Automated Deployment
+
+Manual Deployment of Applications;
+Take the code from Repo	-----> Build and Package the code (Maven)	-----> Artifacts (.jar / .war files )	-----> Deploy		-----> LIVE
+
+To deploy Java based applications, we will use webservers;
+	Tomcat
+
+Nginx, Apache, JBoss....
+
+Introduction to Tomcat;
+Tomcat is a webserver which is especially used for deploying Java based applications
+Tomcat will run on Port number 8080
+If you want to work with Tomcat, we need to install Java (> 08)
+
+EC2 Instance		------> Download the Tomcat .tar file	-----> Extract the tar file	-----> Setup tomcat	----> Do the deployment
+
+Folder structure of Tomcat;
+Bin		- Binaries	- consists of files which are required to start and stop the tomcat server
+						.sh files		- Linux based AMIs		- startup.sh, shutdown.sh
+						.bat files		- Windows based AMIs	- startup.bat, shutdown.bat
+
+Conf	- Configuration	- consists of configuration files
+							server.xml			- used to change the port number of Tomcat
+							tomcat-users.xml		- used to configure the tomcat username and password to access tomcat admin dashboard
+
+Webapps - Deployment directory	- because we will deploy war files of the application
+							/manager/context.xml
+							/host-manager/context.xml
+
+
+sudo dnf install java-17-amazon-corretto-devel -y
+
+Tomcat download URL: https://tomcat.apache.org/download-90.cgi
+
+
+context.xml ---->
+<Context antiResourceLocking="false" privileged="true">
+  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="^.*$" />
+</Context>
+
+tomcat-users.xml ---->
+  <role rolename="manager-gui"/>
+  <role rolename="admin-gui"/>
+  <user username="tomcat" password="tomcat" roles="manager-gui"/>
+  <user username="admin" password="admin" roles="manager-gui,admin-gui"/>
+
+Repo URL: https://github.com/KastroVKiran/tomcat-app-kastro.git
+
+Developer has made the changes	-----> Download the updated code	-----> Generate new artifact	-----> Do the deployment
+
+Manual deployment of application(s) is not recommended in the real-time scenarios.
+We have to automate the build and deployment process - JENKINS
+
+Jenkins is a build automation tool
+
+~~~~~~~~~~~~~~~~~~~~
+Introduction to Jenkins
+~~~~~~~~~~~~~~~~~~~~
+CI & CD
+
+What is CI & CD?
+
+CI - Continuous Integration
+
+Hotstar	-----> Version 1	------> Testing	-----> Build
+Hotstar	-----> Version 2	------> Testing	-----> Build
+Hotstar	-----> Version 3	------> Testing	-----> Build
+
+CI = CT + CB
+
+CD - Continuous Delivery
+If you deploy the code "MANUALLY" into the servers, it is known as CD
+
+CD - Continuous Deployment
+If you automate the process of build and deployment into the servers, it is known as CD
+
+To automate the process of build and deployment, we have CI & CD tools;
+	Jenkins**
+	GitHub Actions
+	Gitlab
+	Circle CI
+	AWS - Code Pipeline
+
+Introduction to Jenkins
+~~~~~~~~~~~~~~~~~~~~~~~~
+Jenkins is a CI & CD tool
+It is used to automate the build and deployment process
+If you want to work with Jenkins, we need to install Java
+Any version which is > 11
+
+Jenkins was originally called as "Hudson Project" owned by Sun Microsystems - it was not open-source
+Oracle has acquired the Hudson Project and renamed to Jenkins and made it as Open-source tool
+
+Jenkins will run on default port number which is 8080
+
+Official documentation: Jenkins.io
+
+⚙️ Brief History
+1. Hudson Project (2004 – 2010)
+Jenkins began as a project called Hudson, created by Kohsuke Kawaguchi, a software developer at Sun Microsystems.
+Kawaguchi built Hudson to automate builds and testing for Java projects, making developers’ lives easier.
+Hudson became hugely popular in the Java and enterprise development world.
+
+2. Oracle Acquisition and Conflict (2010 – 2011)
+When Oracle acquired Sun Microsystems (in 2010), it also gained control of the Hudson project.
+A dispute arose between Oracle and the Hudson open-source community over trademark and governance issues.
+The community — including Kawaguchi — decided to “fork” the Hudson project to continue it independently.
+
+3. Birth of Jenkins (2011)
+In January 2011, the independent version was officially renamed Jenkins.
+The name “Jenkins” was inspired by the image of a helpful English butler — someone who does all the tasks for you quietly and efficiently.
+That’s why Jenkins’ logo is a smiling butler in a tuxedo holding a build tray ☕🧤.
+
+4. Jenkins Today
+Jenkins became the most widely used CI/CD tool in the world.
+It’s supported by a massive community and managed by the Jenkins project under the Continuous Delivery Foundation (CDF), a Linux Foundation project.
+
+🕰️ Timeline Summary
+Year	Event
+2004	Hudson project started by Kohsuke Kawaguchi at Sun Microsystems
+2010	Oracle acquires Sun; dispute over Hudson governance
+2011	Jenkins forked from Hudson and officially renamed
+2014+	Jenkins becomes the leading CI/CD tool globally
+2019	Jenkins joins Continuous Delivery Foundation (CDF)
+Today	Jenkins supports pipelines, containers, cloud, and integrations with almost every DevOps tool
+
+
+Jenkins installation documentation
+https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/
+
+Jenkins home directory;
+/var/lib/jenkins/
+
+In Jenkins we will create Jobs
+Those jobs are known as Jenkins Jobs
+Job is nothing but a task
+
+Types of jobs;
+	1. Freestyle project		- here we will create and configure the jobs using the UI of jenkins
+	2. Pipeline				- here we will create and configure the jobs using scripts (Declarative & Groovy)
+	3. Multibranch Pipeline	- if you want to build the code which is available in the different branches of a repo, we will use this
+
+GitHub Repo		- Branches	- Branch1, Branch2, Branch3, Branch4...
+
+=============================
+Deep dive into Freestyle projects
+=============================
+In freestyle projects, we will have 6 configuration steps;
+	1. General
+	2. SCM
+	3. Triggers
+	4. Environment
+	5. Build steps
+	6. Post-build actions
+
+
+/var/lib/Jenkins/workspace/
+
+
+Task:
+Create a shell file with the commands related to installation of Apache and run that shell file using Jenkins
+Access the home page of apache
+80
+
+------------------------------------
+Throttle Builds
+------------------------------------
+Freshers -----> Build Now
+To restrict the number of builds to happen in a specific time period
+
+1 hour	---- 2 times
+1 hour	---- 4 times
+
+60 minutes / 2 = 30 minutes
+
+Integration of public GitHub repo in Jenkins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

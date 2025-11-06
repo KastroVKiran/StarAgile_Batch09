@@ -1,0 +1,120 @@
+Jenkins - 5 days
+-----------------------------------------
+
+---------------------------------------------------------------------------------------------
+Integration of Public GitHub repo and Maven with Jenkins
+---------------------------------------------------------------------------------------------
+Build the code 	----> Maven		-----> clean package
+
+---------------------------------------------------------------------------------------------
+General - This Job is Parameterized
+---------------------------------------------------------------------------------------------
+What is a parameter?
+Parameters are used to pass the variables
+
+Types of parameters;
+	1. String
+	2. Choice
+
+String Parameter - string is a group of characters
+Using string parameter we can call variables and print the required output
+parameters will be defined as KEY-VALUE pairs
+
+What is a Key-Value pair?
+Name = Kastro
+Role = DevOps Engineer
+Age = 17
+
+$ is used to call the key and then we can print the output
+
+Choice Parameter - 
+Gender - Male, Female
+
+GitHub Repo	----> Branches	----> FeatureA (Movies), FeatureB (Train), FeatureC (DTH)
+
+---------------------------------------------------------------------------------------------
+Triggers - Build Periodically
+---------------------------------------------------------------------------------------------
+Triggers are used to schedule the job execution
+In this, the job will be built based on the time period we will configure in Jenkins
+
+Everyday - @ 10.00 AM (Mon-Fri), 06 Nov to 16 Nov
+To trigger the build we will use CRON Expression
+
+* * * * *	-----> Every minute the job will get executed
+H * * * * ----> Every hour the job will get executed
+H/2 * * * * ----> Every half an hour the job will get executed
+
+
+Version 1 code	----> Build and Package
+Version 2 code	----> Build and Package
+
+Build Periodically doesn't bother about the code changes in the repo. 
+It will continuously build the code and consumes the underlying storage.
+
+---------------------------------------------------------------------------------------------
+Triggers - Poll SCM
+---------------------------------------------------------------------------------------------
+Here also we will cron expression
+
+Poll SCM will look after the changes made in the GitHub repo, and then only it will trigger the job
+
+The limitation with Poll SCM is we need to wait for a minimum of 1 minute for the job to trigger
+
+---------------------------------------------------------------------------------------------
+Triggers - GitHub hook trigger
+---------------------------------------------------------------------------------------------
+Create a webhook in the GitHub repo which is configured Jenkins 
+
+---------------------------------------------------------------------------------------------
+Triggers - Trigger Builds remotely
+---------------------------------------------------------------------------------------------
+Jenkins Admin	- Team Lead ----> Complete access to Jenkins
+
+Jenkins Users	- Team Members	-----> May not have complete access Jenkins 
+
+Remote URL ----> Token ----> Hit the url ----> Username and Password ----> Automatically the job will be triggered
+
+kastro
+
+JENKINS_URL/job/schedule-job/build?token=TOKEN_NAME
+
+http://54.91.207.118:8080/job/schedule-job/build?token=kastro
+
+---------------------------------------------------------------------------------------------
+Triggers - Build after other projects are built
+---------------------------------------------------------------------------------------------
+Job1	- Dev Env	- Manual Build	- Successful - to trigger Job2
+Job2	- Test Env	- Automation	- Successful - to trigger Job3
+Job3	- Prod Env	- Automation
+
+upstream and downstream jobs
+
+Stable build
+Unstable build
+On failure
+Aborted build
+
+job2	----->job1
+job3----->job2
+
+job1 ---- us job is none, ds job is job2
+job2 ---- us job is job1, ds job is job3
+job3 ---- us job is job2, ds job is none
+
+Build Queue
+
+---------------------------------------------------------------------------------------------
+Build Executor Status
+---------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------
+Recovering a deleted job
+---------------------------------------------------------------------------------------------
+Plugin - job configuration history
+
+
+Note: Whatever jobs that were created and built after installing the plugin, only those jobs can be recovered
+
+
+

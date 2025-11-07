@@ -1,0 +1,107 @@
+Jenkins - 5 days
+-----------------------------------------
+---------------------------------------------------------------------------------------------
+Integration of Private GitHub repo and Maven with Jenkins
+---------------------------------------------------------------------------------------------
+We need to create PAT (Personal Access Token)
+Jenkins	----> GitHub Repo		-----> GitHub Account		-----> Repo.
+
+
+---------------------------------------------------------------------------------------------
+Freestyle Project & Changing the port number of Tomcat
+---------------------------------------------------------------------------------------------
+Jenkins + GitHub + Maven + Tomcat ----> Build and Deployment Process in an Automated Way using Jenkins
+
+Since Jenkins and Tomcat are running on the same instance, we need to change the port number of any of them,
+Here we have changed the port number of Tomcat ----> conf/server.xml
+
+context.xml ---->
+<Context antiResourceLocking="false" privileged="true">
+  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="^.*$" />
+</Context>
+
+tomcat-users.xml ---->
+  <role rolename="manager-gui"/>
+  <role rolename="admin-gui"/>
+  <role rolename="manager-script"/>
+  <user username="tomcat" password="tomcat" roles="manager-gui"/>
+  <user username="admin" password="admin" roles="manager-gui,admin-gui,manager-script"/>
+
+---------------------------------------------------------------------------------------------
+Storing Artifacts
+---------------------------------------------------------------------------------------------
+Artifact repo tools - Nexus, JFrog, AWS - S3 (Bucket)
+
+Plugin - S3 publisher
+
+AWS - S3 - Create a bucket --- This bucket will configured with Jenkins
+
+
+21:52:27--- 1st war file
+21:53:17--- 2nd war file
+
+---------------------------------------------------------------------------------------------
+Changing the Port number of Jenkins
+---------------------------------------------------------------------------------------------
+cd /usr/lib/systemd/system	----> Jenkins.service ----> Open this file ----> JENKINS_PORT: 8080 (Change the port number) ---> save and quit from the file
+
+sudo systemctl restart Jenkins	
+
+open new port number in the SG of VM
+Access Jenkins with new port number
+
+---------------------------------------------------------------------------------------------
+Pipeline
+---------------------------------------------------------------------------------------------
+Sequential execution of different stages available in a job
+We will create Pipeline Jobs
+To create pipeline jobs, we will write scripts
+There are two way of writing the pipeline scripts;
+	1. Declarative
+	2. Scripted
+
+Declarative:
+	Recent and advanced style of writing a pipeline script
+	Predefined structure
+	Easy to read and manage
+
+Scripted:
+	Groovy language is required
+	Hard to read and manage
+	DSL - Domain Specific Language
+
+Jenkinsfile	- it consists of the pipeline script which is required to execute the job
+
+Deploy the app
+	Git checkout (Stage 1)	- step 1: configure the repo url
+	Build the code (Stage 2) - step 1: clean, step 2: compile, step 3: package
+	Store the artifact - S3/Nexus/JFrog (Stage 3) - step 1: s3, step 2: nexus
+	Code quality analysis - SonarQube (Stage 4) - step 1: SonarQube 
+	Deploy the app - Tomcat/Docker/K8s (Stage 5) - step 1: tomcat, step 2: docker, step 3: k8s
+
+P	- pipeline		- represents how you want to build the job
+A	- agent (any)	- where you want to build the job
+S	- stages		- stages in a job
+S	- steps		- steps in a stage
+
+Nexus - https://youtu.be/opJAfDOCZuI?si=Vy6r3abKBEM-mdMD
+SonarQube - https://youtu.be/ScdedztTaAU?si=_6dnPri0Pcgw0AHI
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

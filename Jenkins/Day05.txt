@@ -1,0 +1,171 @@
+Jenkins - 5 days
+-----------------------------------------
+
+Installation of Jenkins
+------------------------------------------
+https://www.jenkins.io/doc/book/installing/linux/
+
+sudo wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo yum upgrade
+# Add required dependencies for the jenkins package
+    sudo dnf install java-17-amazon-corretto -y
+sudo yum install jenkins
+sudo systemctl daemon-reload
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+sudo systemctl status jenkins
+
+
+RBAC
+-------------------------------------------
+RBAC - Roll Based Access Control
+
+Project (Hotstar) -----> Dev Team, Test Team, Ops Team...
+
+Ops Team -----> DevOps Engineers (4 people)
+
+Person 1 --- 7+ years of experience			--- Jenkins Admin		--- All permissions related to Jenkins (Creating, Configuring, Building, Configuring....)
+Person 2 and 3 ---- 5+ years of experience		--- Jenkins Users		--- Limited permissions (Creating, Configure the job...)
+Person 4 --- < 3years of experience			--- Jenkins User		--- See the console output
+
+RBAC is used to manage the permissions for the different people working for a project
+
+Jenkins Admin will create the Jenkins Users
+Jenkins Admin will decide what permissions has to be given for each user
+This concept is known as RBAC
+
+Note: Whenever we create Jenkins Users, by default Jenkins users will get administrator access. Jenkins admin have to explicitly set the permissions
+
+AWS ----> Root user (All permissions) and IAM user (EC2 Service, S3 Service...)
+
+
+---------------------------------------------------------------------------------------------
+Jenkins Pipeline Project - Project 3 (Major Project)
+---------------------------------------------------------------------------------------------
+
+Jenkins + GitHub + Maven + Tomcat + S3 + Nexus + SonarQube + Download the artifacts to local
+
+Hotstar
+
+
+2 Amazon Linux --- t2.medium instances (Jenkins, SonarQube)
+1 Ubuntu --- t2.medium (Nexus)
+1 Amazon Linux --- t2.micro (Tomcat)
+
+To setup Nexus and SonarQube, we will use Docker
+	Install docker
+	We will run docker containers related to nexus and SonarQube
+
+Port Numbers;
+Jenkins - 8080
+Tomcat - 8080
+Nexus - 8081
+SonarQube - 9000
+
+maven3 ---> Maven tool is configured with this name in the Jenkins dashboard
+
+
+
+
+
+
+Edit the 'context.xml' file as below ---->
+<Context antiResourceLocking="false" privileged="true">
+  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="^.*$" />
+</Context>
+
+Edit the 'tomcat-users.xml' file as below ---->
+  <role rolename="manager-gui"/>
+  <role rolename="admin-gui"/>
+  <role rolename="manager-script"/>
+  <user username="tomcat" password="tomcat" roles="manager-gui"/>
+  <user username="admin" password="admin" roles="manager-gui,admin-gui,manager-script"/>
+
+
+
+RBAC  
+
+docker run -d --name sonar-container -p 9000:9000 sonarqube:lts-community
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        stage('Deploy Specific Artifact from Nexus') {
+    environment {
+        ARTIFACT_URL = 'http://<Nexus-VM-IP>:8081/repository/hotstar/in/kastro/myapp/8.3.3-SNAPSHOT/myapp-8.3.3-20251110.171519-3.war'
+    }
+    steps {
+        withCredentials([usernamePassword(credentialsId: 'nexus-creds', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS')]) {
+            sh '''
+            mkdir -p target
+            echo "Downloading WAR from Nexus..."
+            curl -s -u "$NEXUS_USER:$NEXUS_PASS" -o target/myapp.war "$ARTIFACT_URL"
+            echo "✅ Download complete: target/myapp.war"
+            '''
+        }
+
+        deploy adapters: [tomcat9(
+            alternativeDeploymentContext: '',
+            credentialsId: 'tomcat-creds',
+            path: '',
+            url: 'http://<Tomcat-VM-IP>:8080/'
+        )],
+        contextPath: 'hotstar-app',
+        war: 'target/myapp.war'
+    }
+}
